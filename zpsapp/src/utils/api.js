@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-27 16:09:35
- * @LastEditTime: 2021-08-28 15:13:57
+ * @LastEditTime: 2021-08-29 20:25:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\utils\api.js
@@ -56,6 +56,16 @@ export function Gird(arg) {
 export function appIndex(arg) {
     return service({
         url: '/recommend/appIndex',
+        data: arg,
+        method: 'get',
+    })
+}
+
+// 课程数据
+
+export function showTeachers(arg) {
+    return service({
+        url: '/teacher/search/attrs?page=1&limit=10&',
         data: arg,
         method: 'get',
     })

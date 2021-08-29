@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-26 17:11:17
- * @LastEditTime: 2021-08-28 13:03:38
+ * @LastEditTime: 2021-08-29 18:40:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\views\login.vue
@@ -108,18 +108,13 @@ export default {
         mobile: this.mobile,
         sms_type: "login"
       });
-      // console.log(data);
+      
     }
   },
   // // 登录
   created() {
-    this.getMsg()
-    // const {
-    //   data: {
-    //     data: { index }
-    //   }
-    // } = await smsCode({ mobile: this.mobile, sms_type: "login" });
-    // console.log(index);
+    this.getMsg();
+   
   },
   mounted() {}
 };
@@ -127,7 +122,6 @@ export default {
 <style lang="scss" scoped>
 .zps_login {
   width: 750px;
-
   //   导航栏
   .header {
     width: 750px;
