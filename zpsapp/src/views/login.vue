@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-26 17:11:17
- * @LastEditTime: 2021-08-26 23:59:32
+ * @LastEditTime: 2021-08-28 13:03:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\views\login.vue
@@ -21,8 +21,8 @@
       <div class="lists">
         <img src="../../public/A1_03.jpg" alt="" style="width:30px;height:40px;">
         <!-- <span>请输入手机号</span> -->
-        <input type="text" placeholder="请输入手机号" v-model="mobile">
-        <button class="btn" @click="msgs">获取验证码</button>
+        <input type="number" placeholder="请输入手机号" v-model="mobile">
+        <button class="btn" @click="btn">{{msgss}}</button>
       </div>
       <div class="lists">
         <img src="../../public/A1_06.jpg" alt="" style="width:30px;height:40px;">
@@ -32,7 +32,7 @@
     </div>
     <!-- 按钮 -->
     <div class="login-btn">
-      <button>登 录</button>
+      <button @click="login">登 录</button>
     </div>
     <!-- 登录的汉字 -->
     <div class="login-span">
@@ -56,34 +56,81 @@
 </template>
 
 <script>
+import { smsCode } from "@/utils/api.js";
 export default {
   components: {},
   props: {},
   data() {
     return {
-    mobile:"", //手机号
-      msg:""  //验证码
+      mobile: "", //手机号
+      msg: "", //验证码
+      msgss: "获取验证码"
     };
   },
   watch: {},
   computed: {},
   methods: {
-   async msgs(){
-     const {data:res} = await this.$axios.post("/smsCode")
-     console.log(res);
+    // 登录
+    login() {
+      let reg = /^1[345678]\d{9}$/; //手机号正则
+      if (this.mobile == "" || this.msg == "") {
+        this.$toast.fail("手机号不能为空");
+        // this.$toast.fail("手机号不能为空");
+      } else if (!reg.test(this.mobile)) {
+        this.$toast.fail("请输入正确的手机号");
+        // return false;
+      } else {
+        localStorage.setItem("ele_login", true);
+        this.$router.push("/index");
+      }
+
+      // if (this.msg == "") {
+      //   this.$toast.fail("验证码不能为空");
+      // }
+    },
+    //  验证码
+    btn() {
+      this.getMsg();
+      //倒计时
+      let time = 60;
+      let timer = setInterval(() => {
+        if (time == 0) {
+          clearInterval(timer);
+          this.msgss = "获取验证码";
+        } else {
+          this.msgss = time + "秒后重试";
+          time--;
+        }
+      }, 1000);
+    },
+    async getMsg() {
+      const data = await smsCode({
+        mobile: this.mobile,
+        sms_type: "login"
+      });
+      // console.log(data);
     }
   },
-  created() {},
+  // // 登录
+  created() {
+    this.getMsg()
+    // const {
+    //   data: {
+    //     data: { index }
+    //   }
+    // } = await smsCode({ mobile: this.mobile, sms_type: "login" });
+    // console.log(index);
+  },
   mounted() {}
 };
 </script>
 <style lang="scss" scoped>
 .zps_login {
-  width: 100%;
-  height: 100%;
+  width: 750px;
+
   //   导航栏
   .header {
-    width: 100%;
+    width: 750px;
     height: 80px;
     line-height: 80px;
     padding-left: 10px;
@@ -93,7 +140,7 @@ export default {
   }
   //   头像部分
   .imgLogin {
-    width: 100%;
+    width: 750px;
     height: 163px;
     img {
       width: 100%;
@@ -102,14 +149,13 @@ export default {
   }
   // 输入框部分
   .list {
-    width: 100%;
+    width: 750px;
     height: 195px;
     padding: 0 40px;
     box-sizing: border-box;
     // text-align: center;
     margin-top: 100px;
     .lists {
-      width: 100%;
       height: 75px;
       display: flex;
       // justify-content: space-around;

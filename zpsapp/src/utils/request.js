@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 11:43:15
- * @LastEditTime: 2021-08-26 16:25:06
+ * @LastEditTime: 2021-08-27 22:01:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \每时每刻\app\src\utils\request.js
@@ -13,12 +13,13 @@ import { Toast } from 'vant'
 import { baseApi } from '@/config'
 const service = axios.create({
     baseURL: baseApi,
-    withCredentials: true,
+    // withCredentials: true,
     timeout: 5000
 })
 // request请求拦截器
-service.interceptors.requestVue.use(
+service.interceptors.request.use(
     config => {
+        console.log(config);
         // 不传递默认开启loading
         if (!config.hideloading) {
             // loading
@@ -27,36 +28,40 @@ service.interceptors.requestVue.use(
             })
         }
         if (store.getters.token) {
-            config.headers['X-Token'] = ''
+            config.headers['remember_token'] = ''
         }
         return config
     },
-    error=>{
+    error => {
         console.log(error)
         return Promise.reject(error)
+        // err === 'canceled' || Message.error(err.errmsg)
+        // return    //弹出错误提示信息，这里直接return掉
     }
 )
-// 响应respone拦截器
+// 响应respose拦截器
 service.interceptors.response.use(
-    response=>{
+    response => {
         Toast.clear()
-        const res=response.data
-        if (res.status&&res.status!==200) {
-              // 登录超时,重新登录
-        if (res.status===401) {
-            store.dispatch('FedLogOut').then(()=>{
-                location.reload()
-            })
-        }
-        return Promise.reject(res||'error')
-        }else{
+        const res = response.data
+        // console.log(res);
+        // return Promise.resolve(res)
+        if (res.code && res.code !== 200) {
+            // 登录超时,重新登录
+            if (res.status === 401) {
+                store.dispatch('FedLogOut').then(() => {
+                    location.reload()
+                })
+            }
+            return Promise.reject(res || 'error')
+        } else {
             return Promise.resolve(res)
         }
-      
+
     },
-    error=>{
+    error => {
         Toast.clear()
-        console.log('err'+error)
+        console.log('err' + error)
         return Promise.reject(error)
     }
 )
