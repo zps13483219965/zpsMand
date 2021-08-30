@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-26 17:11:17
- * @LastEditTime: 2021-08-29 18:40:20
+ * @LastEditTime: 2021-08-30 11:34:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\views\login.vue
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { smsCode } from "@/utils/api.js";
+import { smsCode, login } from "@/utils/api.js";
 export default {
   components: {},
   props: {},
@@ -73,21 +73,28 @@ export default {
     // 登录
     login() {
       let reg = /^1[345678]\d{9}$/; //手机号正则
-      if (this.mobile == "" || this.msg == "") {
-        this.$toast.fail("手机号不能为空");
-        // this.$toast.fail("手机号不能为空");
+      if (this.mobile == "" && this.msg == "") {
+        this.$toast.fail("内容不能为空");
       } else if (!reg.test(this.mobile)) {
         this.$toast.fail("请输入正确的手机号");
-        // return false;
       } else {
-        localStorage.setItem("ele_login", true);
+        this.logins(); //调用登录接口
         this.$router.push("/index");
       }
-
-      // if (this.msg == "") {
-      //   this.$toast.fail("验证码不能为空");
-      // }
     },
+    // 登录接口
+    async logins() {
+      const { data: res } = await login({
+        mobile: this.mobile,
+        sms_code: this.msg,
+        type: 2,
+        client: "1"
+      });
+      console.log(res);
+
+      this.$store.commit("setToken", res.remember_token);
+    },
+
     //  验证码
     btn() {
       this.getMsg();
@@ -103,18 +110,19 @@ export default {
         }
       }, 1000);
     },
+    // 验证码接口
     async getMsg() {
       const data = await smsCode({
         mobile: this.mobile,
         sms_type: "login"
       });
-      
+      console.log(data);
     }
   },
   // // 登录
   created() {
-    this.getMsg();
-   
+    // this.getMsg();
+    // this.logins();
   },
   mounted() {}
 };

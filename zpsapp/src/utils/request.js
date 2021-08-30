@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 11:43:15
- * @LastEditTime: 2021-08-27 22:01:43
+ * @LastEditTime: 2021-08-30 11:15:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \每时每刻\app\src\utils\request.js
@@ -27,9 +27,9 @@ service.interceptors.request.use(
                 forbidClick: true
             })
         }
-        if (store.getters.token) {
-            config.headers['remember_token'] = ''
-        }
+        // if (store.getters.token) {
+            config.headers['remember_token'] = store.state.token
+        // }
         return config
     },
     error => {
