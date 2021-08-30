@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-27 16:09:35
- * @LastEditTime: 2021-08-29 20:25:24
+ * @LastEditTime: 2021-08-30 19:00:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\utils\api.js
@@ -21,6 +21,16 @@ export function smsCode(arg) {
 export function login(arg) {
     return service({
         url: '/login',
+        data: arg,
+        method: 'post',
+    })
+}
+
+
+// 修改密码
+export function password(arg) {
+    return service({
+        url: '/password',
         data: arg,
         method: 'post',
     })

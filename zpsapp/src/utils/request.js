@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 11:43:15
- * @LastEditTime: 2021-08-30 11:15:40
+ * @LastEditTime: 2021-08-30 11:42:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \每时每刻\app\src\utils\request.js
@@ -27,9 +27,9 @@ service.interceptors.request.use(
                 forbidClick: true
             })
         }
-        // if (store.getters.token) {
+        if (store.state.token) {
             config.headers['remember_token'] = store.state.token
-        // }
+        }
         return config
     },
     error => {
@@ -42,8 +42,8 @@ service.interceptors.request.use(
 // 响应respose拦截器
 service.interceptors.response.use(
     response => {
-        Toast.clear()
-        const res = response.data
+        Toast.clear() //响应到数据以后 ，清除loading效果
+        const res = response.data //打印的数据
         // console.log(res);
         // return Promise.resolve(res)
         if (res.code && res.code !== 200) {

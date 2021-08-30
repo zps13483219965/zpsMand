@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 15:56:27
- * @LastEditTime: 2021-08-28 16:22:06
+ * @LastEditTime: 2021-08-30 20:47:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\router\index.js
@@ -24,27 +24,32 @@ const routes = [
       {
         path: '/Index',
         name: 'Index',
-        component: () => import('../views/index/index.vue')
+        component: () => import('../views/index/index.vue'),
+        meta: { title: "首页" }
       },
       {
         path: '/ShowTeachers',
         name: 'Show-teachers',
-        component: () => import('../views/show-teachers/show-teachers.vue')
+        component: () => import('../views/show-teachers/show-teachers.vue'),
+        meta: { title: "课程" }
       },
       {
         path: '/News',
         name: 'News',
-        component: () => import('../views/news/news.vue')
+        component: () => import('../views/news/news.vue'),
+        meta: { title: "资讯" }
       },
       {
         path: '/BookList',
         name: 'Book-list',
-        component: () => import('../views/book-list/book-list.vue')
+        component: () => import('../views/book-list/book-list.vue'),
+        meta: { title: "图书" }
       },
       {
         path: '/Person',
         name: 'Person',
-        component: () => import('../views/person/person.vue')
+        component: () => import('../views/person/person.vue'),
+        meta: { title: "我的" }
       },
     ]
   },
@@ -54,8 +59,25 @@ const routes = [
     component: () => import('../views/login.vue'),
     meta: { title: "登录" }
   },
+  // 设置密码 ， 注销账号  (设置页面)ll
+  {
+    path: '/options',
+    component: () => import('../views/options/options.vue'),
+    meta: { title: "设置" }
+  },
+  // 设置密码 ， 注销账号  (设置页面)ll
+  {
+    path: '/set-new-pass',
+    component: () => import('../views/options/set-new-pass.vue'),
+    meta: { title: "设置密码" }
+  },
 
-
+  // 设置密码 ， 注销账号  (设置页面)ll
+  {
+    path: '/remove-contract',
+    component: () => import('../views/options/remove-contract.vue'),
+    meta: { title: "注销账号" }
+  },
 
 
 

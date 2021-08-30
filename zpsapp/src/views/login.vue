@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-26 17:11:17
- * @LastEditTime: 2021-08-30 11:34:36
+ * @LastEditTime: 2021-08-30 21:53:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\views\login.vue
@@ -19,30 +19,32 @@
     <!-- 输入框部分 -->
     <div class="list">
       <div class="lists">
-        <img src="../../public/A1_03.jpg" alt="" style="width:30px;height:40px;">
-        <!-- <span>请输入手机号</span> -->
+        <img src="../../public/A1_03.jpg" alt="">
         <input type="number" placeholder="请输入手机号" v-model="mobile">
-        <button class="btn" @click="btn">{{msgss}}</button>
+        <button class="btn" @click="btn" v-show="show">{{msgss}}</button>
       </div>
       <div class="lists">
-        <img src="../../public/A1_06.jpg" alt="" style="width:30px;height:40px;">
-        <!-- <span>请输入验证码</span> -->
-        <input type="text" placeholder="请输入验证码" v-model="msg">
+        <img src="../../public/A1_06.jpg" alt="">
+        <input type="text" placeholder="请输入验证码" v-model="msg" v-show="show">
+        <input type="password" placeholder="请输入密码" v-show="!show" v-model="password">
       </div>
     </div>
     <!-- 按钮 -->
     <div class="login-btn">
-      <button @click="login">登 录</button>
+      <button @click="login" v-show="show">登 录</button>
+       <button @click="loginPassword" v-show="!show">1登 录</button>
     </div>
     <!-- 登录的汉字 -->
     <div class="login-span">
-      <span>*未注册的手机号将自动注册</span>
-      <span>密码登录</span>
+      <span v-show="show">*未注册的手机号将自动注册</span>
+      <span v-show="!show">找回密码</span>
+      <span @click="show=!show" v-show="show">密码登录</span>
+      <span @click="show=!show" v-show="!show">注册/验证码登录</span>
     </div>
     <!-- 第三方登录 -->
     <div class="info">—————第三方登录—————</div>
     <!-- qq微信登录 -->
-    <div class="login-wei">
+    <div class="login-wei" v-if="show">
       <div class="wei">
         <img src="../../public/A_05.jpg" alt="">
         <p>微信登录</p>
@@ -64,13 +66,22 @@ export default {
     return {
       mobile: "", //手机号
       msg: "", //验证码
-      msgss: "获取验证码"
+      password: "", //密码
+      msgss: "获取验证码",
+      show: true //控制显示隐藏
+
+      // showMsg: true, //验证码默认为false
+      // off_showMsg: false, //密码输入框默认不显示
+      // off_showMsg1: true, //密码登录默认显示
+      // showMsg1: false, //验证码显示默认隐藏
+      // showMsg2: true, //未注册默认未显示
+      // off_showMsg2: false //找回密码默认false
     };
   },
   watch: {},
   computed: {},
   methods: {
-    // 登录
+    // 验证码登录
     login() {
       let reg = /^1[345678]\d{9}$/; //手机号正则
       if (this.mobile == "" && this.msg == "") {
@@ -82,7 +93,7 @@ export default {
         this.$router.push("/index");
       }
     },
-    // 登录接口
+    // 登录验证码接口
     async logins() {
       const { data: res } = await login({
         mobile: this.mobile,
@@ -90,16 +101,41 @@ export default {
         type: 2,
         client: "1"
       });
-      console.log(res);
-
+      console.log(res)
       this.$store.commit("setToken", res.remember_token);
     },
+    // 密码登录
+    loginPassword(){
+       let reg = /^1[345678]\d{9}$/; //手机号正则
+      if (this.mobile == "" && this.password == "") {
+        this.$toast.fail("内容不能为空");
+      } else if (!reg.test(this.mobile)) {
+        this.$toast.fail("请输入正确的手机号");
+      } else {
+        this.loginsPassword1(); //调用登录密码接口
+       
+      }
 
+    },
+    // 登录密码接口
+    async loginsPassword1() {
+      const { data: res } = await login({
+        mobile: this.mobile,
+        password:this.password,
+        type: 1,
+        client: "1"
+      });
+      console.log(res);
+      if (res.code==200) {
+         this.$store.commit("setToken", {nickname:res.nickname,remember_token:res.remember_token});
+      }
+       this.$router.push("/index");
+     
+    },
     //  验证码
     btn() {
       this.getMsg();
-      //倒计时
-      let time = 60;
+      let time = 60;    //倒计时
       let timer = setInterval(() => {
         if (time == 0) {
           clearInterval(timer);

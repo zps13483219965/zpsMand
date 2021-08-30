@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-27 19:55:46
- * @LastEditTime: 2021-08-29 20:05:22
+ * @LastEditTime: 2021-08-30 21:09:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\views\person\person.vue
 -->
 <template>
   <div class="zps_person">
-    <!-- 上半部分 -->
-    <div class="zps_top">
+    <!-- 上半部分  登录的时候的状态 -->
+    <div class="zps_top" v-if="$store.state.toKen">
       <div class="header">
         <div>
           <img
@@ -32,6 +32,39 @@
         </van-grid-item>
         <van-grid-item v-for="value in 1" :key="value">
           <p style="color: #e74d3d;font-size:20px;">4</p>
+          <p>我的积分</p>
+        </van-grid-item>
+      </van-grid>
+    </div>
+    <!-- 上半部分  未登录的时候的状态 -->
+    <div class="zps_top" v-else>
+      <div class="header1" style="text-align:center;">
+        <div>
+          <img
+            src="http://120.53.31.103:86/img/avatar.71c6d2b4.png"
+            alt=""
+            style="width:60px;height:60px;border-radius:50%"
+          >
+          <p
+            style="font-size: 4.53333vw;
+    color: #fff;
+    margin-top: .48rem;
+    margin-top: 4.8vw;"
+            @click="$router.push('login')"
+          >登录/注册</p>
+        </div>
+      </div>
+      <van-grid :column-num="3" style="margin-top:160px;">
+        <van-grid-item v-for="value in 1" :key="value">
+          <p style="color: #5bb8f5;font-size:20px;">0</p>
+          <p>我的学习</p>
+        </van-grid-item>
+        <van-grid-item v-for="value in 1" :key="value">
+          <p style="color: #e60012;font-size:20px;">0</p>
+          <p>本课课时</p>
+        </van-grid-item>
+        <van-grid-item v-for="value in 1" :key="value">
+          <p style="color: #e74d3d;font-size:20px;">0</p>
           <p>我的积分</p>
         </van-grid-item>
       </van-grid>
@@ -98,7 +131,7 @@
         icon="data:image/png;base64,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"
         is-link
       />
-      <van-cell title="设置" icon="setting-o" is-link/>
+      <van-cell title="设置" icon="setting-o" is-link to="/options"/>
     </div>
   </div>
 </template>
@@ -135,6 +168,7 @@ export default {
     padding-top: 100px;
     box-sizing: border-box;
     position: relative;
+    // 登录状态的样式
     .header {
       width: 750px;
       height: 100px;
@@ -145,6 +179,41 @@ export default {
       position: relative;
       justify-content: space-evenly;
       margin-left: -100px;
+      .name {
+        display: block;
+        line-height: 100px;
+        width: 200px;
+        height: 100%;
+        color: #fff;
+        font-size: 35px;
+        margin-left: -100px;
+      }
+      .qiAn {
+        display: block;
+        background: #5994ed;
+        width: 140px;
+        height: 50px;
+        color: #fff;
+        font-size: 15px;
+        text-align: center;
+        line-height: 50px;
+        position: absolute;
+        top: 50%;
+        right: -100px;
+        border-radius: 35% 0px 0px 35%;
+      }
+    }
+    // 未登录状态的样式
+    .header1 {
+      width: 750px;
+      height: 100px;
+      box-sizing: border-box;
+      box-sizing: border-box;
+      display: flex;
+      padding: 3px;
+      position: relative;
+      justify-content: space-evenly;
+
       .name {
         display: block;
         line-height: 100px;

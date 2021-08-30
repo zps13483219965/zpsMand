@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-29 17:11:47
- * @LastEditTime: 2021-08-30 11:31:17
+ * @LastEditTime: 2021-08-30 21:49:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Ed
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\store\index.js
@@ -14,16 +14,24 @@ Vue.use(Vuex)
 import VuexPersistence from 'vuex-persist'
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
-  key:"zps"
+  key: "zps"
 })
 
 export default new Vuex.Store({
   state: {
-    toKen:""
+    toKen: "",
+    nickname:""
   },
   mutations: {
-    setToken(state,arg){
-      state.toKen=arg; //存到本地存储
+    // 登录  存入token
+    setToken(state, arg) {
+      state.toKen = arg.remember_token; //存到本地存储
+      state.nickname=arg.nickname
+    },
+    //退出  清除token
+    logout(state) {
+      state.toKen = ""
+      // localStorage.removeItem(state.toKen);
 
     }
   },
@@ -31,7 +39,7 @@ export default new Vuex.Store({
   },
   modules: {
   },
-  getters:{
+  getters: {
 
   },
   plugins: [vuexLocal.plugin]
