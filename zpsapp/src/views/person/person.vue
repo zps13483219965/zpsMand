@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-27 19:55:46
- * @LastEditTime: 2021-08-30 21:09:23
+ * @LastEditTime: 2021-08-31 19:37:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\views\person\person.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="zps_person">
     <!-- 上半部分  登录的时候的状态 -->
-    <div class="zps_top" v-if="$store.state.toKen">
+    <div class="zps_top" v-if="$store.state.token">
       <div class="header">
         <div>
           <img
@@ -18,19 +18,19 @@
             style="width:60px;height:60px;border-radius:50%"
           >
         </div>
-        <div class="name">134****9965</div>
-        <div class="qiAn">已签到</div>
+        <div class="name">{{$store.state.nickname}}</div>
+        <div class="qiAn" @click="$router.push('/sign')">已签到</div>
       </div>
       <van-grid :column-num="3" style="margin-top:160px;">
-        <van-grid-item v-for="value in 1" :key="value">
+        <van-grid-item v-for="value in 1" :key="value" @click="$router.push('/my-study')">
           <p style="color: #5bb8f5;font-size:20px;">0</p>
           <p>我的学习</p>
         </van-grid-item>
-        <van-grid-item v-for="value in 1" :key="value">
+        <van-grid-item v-for="value in 1" :key="value" @click="$router.push('/time')">
           <p style="color: #e60012;font-size:20px;">0</p>
-          <p>本课课时</p>
+          <p >本课课时</p>
         </van-grid-item>
-        <van-grid-item v-for="value in 1" :key="value">
+        <van-grid-item v-for="value in 1" :key="value" @click="$router.push('/detail')">
           <p style="color: #e74d3d;font-size:20px;">4</p>
           <p>我的积分</p>
         </van-grid-item>
@@ -141,7 +141,9 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      s:false
+    };
   },
   watch: {},
   computed: {},

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 15:56:27
- * @LastEditTime: 2021-08-30 20:47:54
+ * @LastEditTime: 2021-08-31 19:36:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\router\index.js
@@ -14,7 +14,7 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes = [
-
+// 尾部 tabbar
   {
     path: '/',
     name: 'Home',
@@ -78,15 +78,33 @@ const routes = [
     component: () => import('../views/options/remove-contract.vue'),
     meta: { title: "注销账号" }
   },
-
-
-
-
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+   // 积分签到  (设置页面)ll
+   {
+    path: '/sign',
+    component: () => import('../views/person/sign.vue'),
+    meta: { title: "签到领好礼,快快来" }
   },
+   // 本课课时 (设置页面)ll
+   {
+    path: '/time',
+    component: () => import('../views/person/time.vue'),
+    meta: { title: "学习日历" }
+  },
+  // 我的学习 (设置页面)ll
+  {
+    path: '/my-study',
+    component: () => import('../views/person/my-study.vue'),
+    meta: { title: "我的学习" }
+  },
+   // 积分明细 (设置页面)ll
+   {
+    path: '/detail',
+    component: () => import('../views/integral/detail.vue'),
+    meta: { title: "积分明细" }
+  },
+
+
+
 
 ]
 

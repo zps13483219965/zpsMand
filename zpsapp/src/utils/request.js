@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 11:43:15
- * @LastEditTime: 2021-08-30 11:42:13
+ * @LastEditTime: 2021-08-31 16:41:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \每时每刻\app\src\utils\request.js
@@ -28,7 +28,7 @@ service.interceptors.request.use(
             })
         }
         if (store.state.token) {
-            config.headers['remember_token'] = store.state.token
+            config.headers['Authorization'] = "Bearer " + store.state.token
         }
         return config
     },

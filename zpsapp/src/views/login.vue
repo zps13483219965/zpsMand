@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-26 17:11:17
- * @LastEditTime: 2021-08-30 21:53:38
+ * @LastEditTime: 2021-08-31 15:38:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\views\login.vue
@@ -32,7 +32,7 @@
     <!-- 按钮 -->
     <div class="login-btn">
       <button @click="login" v-show="show">登 录</button>
-       <button @click="loginPassword" v-show="!show">1登 录</button>
+      <button @click="loginPassword" v-show="!show">登 录</button>
     </div>
     <!-- 登录的汉字 -->
     <div class="login-span">
@@ -101,41 +101,47 @@ export default {
         type: 2,
         client: "1"
       });
-      console.log(res)
+      console.log(res);
       this.$store.commit("setToken", res.remember_token);
     },
     // 密码登录
-    loginPassword(){
-       let reg = /^1[345678]\d{9}$/; //手机号正则
+    loginPassword() {
+      let reg = /^1[345678]\d{9}$/; //手机号正则
       if (this.mobile == "" && this.password == "") {
         this.$toast.fail("内容不能为空");
       } else if (!reg.test(this.mobile)) {
         this.$toast.fail("请输入正确的手机号");
       } else {
         this.loginsPassword1(); //调用登录密码接口
-       
       }
-
     },
     // 登录密码接口
     async loginsPassword1() {
       const { data: res } = await login({
         mobile: this.mobile,
-        password:this.password,
+        password: this.password,
         type: 1,
         client: "1"
       });
       console.log(res);
-      if (res.code==200) {
-         this.$store.commit("setToken", {nickname:res.nickname,remember_token:res.remember_token});
-      }
-       this.$router.push("/index");
-     
+       this.$store.commit("setToken", {
+          nickname: res.nickname,
+          remember_token: res.remember_token
+        });
+        this.$router.push("/index");
+      // if (res.code == 200) {
+      //   this.$store.commit("setToken", {
+      //     nickname: res.nickname,
+      //     remember_token: res.remember_token
+      //   });
+      //   this.$router.push("/index");
+      // }
+      
     },
     //  验证码
     btn() {
       this.getMsg();
-      let time = 60;    //倒计时
+      let time = 60; //倒计时
       let timer = setInterval(() => {
         if (time == 0) {
           clearInterval(timer);
