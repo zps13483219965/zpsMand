@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-27 19:53:44
- * @LastEditTime: 2021-08-29 20:42:17
+ * @LastEditTime: 2021-09-01 11:18:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\views\shou-teachers\shou-trachers.vue
@@ -18,6 +18,7 @@
         :desc="item.introduction"
         :title="item.real_name"
         :thumb="item.avatar"
+        :thumb-link="`/teacher?id=${item.id}`"
       
       />
       <div class="van-list__finished-text">没有更多了</div>

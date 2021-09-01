@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 11:43:15
- * @LastEditTime: 2021-08-31 16:41:13
+ * @LastEditTime: 2021-09-01 15:46:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \每时每刻\app\src\utils\request.js
@@ -14,7 +14,7 @@ import { baseApi } from '@/config'
 const service = axios.create({
     baseURL: baseApi,
     // withCredentials: true,
-    timeout: 5000
+    timeout: 30000
 })
 // request请求拦截器
 service.interceptors.request.use(

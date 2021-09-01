@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-27 16:09:35
- * @LastEditTime: 2021-08-31 20:20:06
+ * @LastEditTime: 2021-09-01 20:15:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\utils\api.js
@@ -89,5 +89,60 @@ export function jf(arg) {
         url: '/user/integral/detail?page=1&limit=10&change_type=1&',
         data: arg,
         method: 'get',
+    })
+}
+
+// 日历日期
+
+export function date(arg) {
+    return service({
+        url: '/user/integral/signRecord?date',
+        data: arg,
+        method: 'get',
+    })
+}
+// 课程  1 详情
+
+export function teacherDetail(arg) {
+    return service({
+        url: '/teacher/'+arg,
+        // data: arg,
+        method: 'get',
+    })
+}
+// 主讲课程的内容
+export function teacherDetailMain(arg) {
+    return service({
+        url: '/teacher/mainCourse',
+        data: arg,
+        method: 'post',
+    })
+}
+
+//少年功夫 课程详情
+// 主讲课程的内容
+export function courseInfo(urls,arg) {
+    return service({
+        url: '/courseInfo/'+urls,
+        data: arg,
+        method: 'get',
+    })
+}
+
+// 主讲课程的内容
+export function courseChapter(arg) {
+    return service({
+        url: '/courseChapter',
+        data: arg,
+        method: 'post',
+    })
+}
+
+// 主讲课程的内容
+export function order(arg) {
+    return service({
+        url: '/order/shopInfo',
+        data: arg,
+        method: 'post',
     })
 }

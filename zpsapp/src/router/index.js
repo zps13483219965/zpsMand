@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 15:56:27
- * @LastEditTime: 2021-08-31 19:36:50
+ * @LastEditTime: 2021-09-01 14:39:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\router\index.js
@@ -102,6 +102,24 @@ const routes = [
     component: () => import('../views/integral/detail.vue'),
     meta: { title: "积分明细" }
   },
+    // 课程详情 (课程页面)ll
+    {
+      path: '/teacher',
+      component: () => import('../views/show-teachers/teacher.vue'),
+      meta: { title: "讲师详情" }
+    },
+    // 课程少年功夫详情 (课程页面)22
+    {
+      path: '/courseInfo',
+      component: () => import('../views/show-teachers/courseInfo.vue'),
+      meta: { title: "课程详情" }
+    },
+     // 课程少年功夫详情 (课程页面)22
+     {
+      path: '/order',
+      component: () => import('../views/show-teachers/order.vue'),
+      meta: { title: "确认订单" }
+    },
 
 
 
