@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 15:56:27
- * @LastEditTime: 2021-09-01 14:39:09
+ * @LastEditTime: 2021-09-02 20:31:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zpsMand\zpsapp\src\router\index.js
@@ -119,6 +119,12 @@ const routes = [
       path: '/order',
       component: () => import('../views/show-teachers/order.vue'),
       meta: { title: "确认订单" }
+    },
+    // 咨询详情 (咨询页面)33
+    {
+      path: '/news-detail',
+      component: () => import('../views/news/news-detail.vue'),
+      meta: { title: "咨询详情" }
     },
 
 

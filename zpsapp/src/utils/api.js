@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-27 16:09:35
- * @LastEditTime: 2021-09-01 20:15:23
+ * @LastEditTime: 2021-09-02 20:45:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\utils\api.js
@@ -142,6 +142,33 @@ export function courseChapter(arg) {
 export function order(arg) {
     return service({
         url: '/order/shopInfo',
+        data: arg,
+        method: 'post',
+    })
+}
+
+// 资讯课程的内容
+export function news(arg) {
+    return service({
+        url: '/information/classify',
+        data: arg,
+        method: 'get',
+    })
+}
+
+// 资讯课程的内容(全部)
+export function newsAll(arg) {
+    return service({
+        url: '/information/index',
+        data: arg,
+        method: 'post',
+    })
+}
+
+// 资讯课程的内容(全部)
+export function newDetail(arg) {
+    return service({
+        url: '/information/detail',
         data: arg,
         method: 'post',
     })

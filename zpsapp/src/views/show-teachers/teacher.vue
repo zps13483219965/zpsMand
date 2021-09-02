@@ -1,11 +1,12 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-01 10:55:11
- * @LastEditTime: 2021-09-01 15:10:20
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-02 14:10:39
+ * @LastEditors: your name
  * @Description: In User Settings Edit
  * @FilePath: \zps每时每刻\zpsMand\zpsapp\src\views\show-teachers\teacher.vue
 -->
+
 <template>
     <div>
         <van-card :title="real_name" :thumb="avatar"/>
